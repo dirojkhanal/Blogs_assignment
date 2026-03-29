@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import { errorHandlers } from './middlewares/errorHandlers.js';
 import { notFound } from './middlewares/notFound.js';
-
+import authRoutes from './routes/auth.routes.js';
 const app = express();
 
 
@@ -26,7 +26,7 @@ app.use(morgan('dev'));
 app.get('/api/v1/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date() });
 });
-
+app.use('/api/v1/auth', authRoutes);
 
 
 //error handling middleware
