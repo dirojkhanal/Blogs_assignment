@@ -3,7 +3,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
-import { he } from 'zod/v4/locales';
+import { errorHandlers } from './middlewares/errorHandlers.js';
+import { notFound } from './middlewares/notFound.js';
 
 const app = express();
 
@@ -29,6 +30,8 @@ app.get('/api/v1/health', (req, res) => {
 
 
 //error handling middleware
+app.use(errorHandlers);
+app.use(notFound);
 
 
 export default app;
