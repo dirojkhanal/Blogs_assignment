@@ -1,0 +1,175 @@
+{
+  "info": {
+    "name": "Simple Blog API",
+    "_postman_id": "simple-blog-api",
+    "description": "Easy version of Blog API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:3000/api/v1" },
+    { "key": "token", "value": "" },
+    { "key": "admin_token", "value": "" },
+    { "key": "post_id", "value": "" }
+  ],
+  "item": [
+
+    {
+      "name": "AUTH",
+      "item": [
+
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"user@test.com\",\n  \"password\": \"Password123\"\n}"
+            },
+            "url": "{{base_url}}/auth/register"
+          }
+        },
+
+        {
+          "name": "Login (User)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@test.com\",\n  \"password\": \"Password123\"\n}"
+            },
+            "url": "{{base_url}}/auth/login"
+          }
+        },
+
+        {
+          "name": "Login (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@test.com\",\n  \"password\": \"Password123\"\n}"
+            },
+            "url": "{{base_url}}/auth/login"
+          }
+        }
+
+      ]
+    },
+
+    {
+      "name": "POSTS (User)",
+      "item": [
+
+        {
+          "name": "Get All Posts (Public)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/posts"
+          }
+        },
+
+        {
+          "name": "Get Single Post",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/posts/{{post_id}}"
+          }
+        },
+
+        {
+          "name": "Create Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"My First Blog\",\n  \"content\": \"Hello world\",\n  \"status\": \"published\"\n}"
+            },
+            "url": "{{base_url}}/posts"
+          }
+        },
+
+        {
+          "name": "My Posts",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{base_url}}/posts/user/my-posts"
+          }
+        },
+
+        {
+          "name": "Update Post",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Title\",\n  \"content\": \"Updated content\"\n}"
+            },
+            "url": "{{base_url}}/posts/{{post_id}}"
+          }
+        },
+
+        {
+          "name": "Delete Post",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{base_url}}/posts/{{post_id}}"
+          }
+        }
+
+      ]
+    },
+
+    {
+      "name": "ADMIN",
+      "item": [
+
+        {
+          "name": "Get All Posts (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
+            "url": "{{base_url}}/posts/admin/all"
+          }
+        },
+
+        {
+          "name": "Delete Any Post",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
+            "url": "{{base_url}}/posts/{{post_id}}"
+          }
+        }
+
+      ]
+    }
+
+  ]
+}

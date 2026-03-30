@@ -32,3 +32,29 @@ export const login = async (req, res) => {
     })
 
 };
+export const refresh = async (req, res) => {
+  const { refreshToken } = req.cookies;
+
+  const {
+    accessToken,
+    refreshToken: newRefreshToken,
+  } = await authService.refresh(refreshToken);
+
+  res.cookie('refreshToken', newRefreshToken, COOKIE_OPTIONS);
+
+  res.status(200).json({
+    status: 'success',
+    data: { accessToken },
+  });
+};
+
+export const logout = async (req, res) => {
+  await authService.logout(req.cookies.refreshToken);
+
+  res.clearCookie('refreshToken');
+
+  res.status(200).json({
+    status:  'success',
+    message: 'Logged out successfully',
+  });
+};
