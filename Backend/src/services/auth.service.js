@@ -32,6 +32,20 @@ export const register = async ({name , email ,password ,role}) => {
 
 };
 
+export const login = async ({email ,password}) => {
+    //find user by email 
+    const user = await authRepo.findUserByEmail(email);
+    // checks if user exists and password is correct
+    const isValidPassword = user ? await bcrypt.compare(password ,user.password) : false;
+    if (!user || !isValidPassword) throw new AppError('Invalid email or password', 401);
+    //generate tokens 
+    const tokens = await generateTokens(user);
+    //return user without password
+    const {password:_, ...safeUser} = user;
+    return {safeUser, ...tokens};
+};
+
+
 //private helper 
 const generateTokens = async (user) => {
   const payload = {
