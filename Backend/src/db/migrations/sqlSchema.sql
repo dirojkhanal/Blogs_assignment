@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS posts (
   author_id    UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   title        VARCHAR(500) NOT NULL,
   content      TEXT NOT NULL,
-  status       VARCHAR(10) NOT NULL DEFAULT 'draft'
+  status       VARCHAR(10) NOT NULL DEFAULT 'draft',
   CHECK (status IN ('draft', 'published')),
   views_count  INTEGER  DEFAULT 0,
   published_at TIMESTAMP,
