@@ -693,4 +693,4 @@ A Postman collection file `blogAPI.json` is included at the root of the reposito
 
 ---
 
-*Built for the Software Engineering Internship Task — BlogSphere © 2026*
+
