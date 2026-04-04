@@ -640,20 +640,6 @@ if (post.author_id !== userId && userRole !== 'admin') {
 | `/admin` | All posts with full delete control | Admin role only |
 
 ---
-
-## 🎁 Bonus Features Implemented
-
-- ✅ **Pagination** — public posts and admin endpoint both support `?page=X&limit=Y` with `totalPages`, `hasNext`, `hasPrev` in the response
-- ✅ **Comments table** — database schema includes a fully relational `comments` table, ready for feature extension
-- ✅ **Reusable RBAC middleware** — `protect` and `restrictTo(...roles)` can be applied to any route in one line
-- ✅ **Security headers** — `helmet` sets `X-Content-Type-Options`, `X-Frame-Options`, CSP, and other headers automatically
-- ✅ **Request size limit** — Express body parser capped at `10kb` to prevent large payload attacks
-- ✅ **Async view counter** — `views_count` increments using fire-and-forget so it never slows the response
-- ✅ **Input validation** — all request bodies validated with Zod schemas before reaching any controller
-- ✅ **Layered architecture** — routes → controllers → services → repositories keeps SQL isolated from business logic
-
----
-
 ## 💡 Design Decisions & Assumptions
 
 **1. Layered backend architecture (Controller → Service → Repository)**
